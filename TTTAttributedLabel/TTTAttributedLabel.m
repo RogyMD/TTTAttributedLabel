@@ -707,6 +707,11 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
 
 - (CGRect)boundingRectForCharacterRange:(NSRange)range {
     NSMutableAttributedString *mutableAttributedString = [self.attributedText mutableCopy];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = self.textAlignment;
+    [mutableAttributedString addAttribute:NSParagraphStyleAttributeName
+                                    value:paragraphStyle.copy
+                                    range:NSMakeRange(0, mutableAttributedString.string.length)];
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:mutableAttributedString];
 
